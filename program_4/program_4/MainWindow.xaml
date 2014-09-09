@@ -1,0 +1,118 @@
+﻿<!-- Name: Pranish Dutt
+ *   Date: 11/10/20113 
+ *   Purpose: Assignment 4 -->
+    
+    <Window x:Name="canvasWindow" x:Class="program_4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="Shape Canvas - By Pranish Dutt" Height="600" Width="900" MouseMove="canvasWindow_MouseMove_1"
+        ResizeMode="NoResize" Background="Black" PreviewKeyDown="canvasWindow_PreviewKeyDown" Closing="canvasWindow_Closing"
+        Icon="AppResources/icons/MyIcon.ico" WindowStyle="ToolWindow">
+    <Grid x:Name="canvasGrid" VerticalAlignment="Top" Height="25">
+        <!-- Canvas for drawing-->
+        <Canvas x:Name="canvas" Margin="0,72,0,-510" MouseLeftButtonUp="canvas_MouseLeftButtonUp"
+                Cursor="Pen" MouseLeftButtonDown="canvas_MouseLeftButtonDown">
+            <Rectangle Fill="#14FFFFFF" StrokeDashArray="5" Stroke="#FFFFFFFF" Visibility="Hidden" x:Name="rectangle" Width="50" Height="50" 
+                       StrokeDashOffset="0" StrokeThickness="1" RadiusX="0" RadiusY="0" Canvas.Left="0" Canvas.Top="0" Tag="BOX"/>
+        </Canvas>
+        <!-- Canvas for drawing-->
+        <Menu x:Name="mainMenu">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF6F6F6" Offset="0.25"/>
+                    <GradientStop Color="#FFEAE8E8" Offset="0.25"/>
+                    <GradientStop Color="#FFDCD9D9" Offset="0.8"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Menu.Background>
+            <MenuItem Header="File">
+                <MenuItem Header="Open" Click="menuClick_Open" InputGestureText="(CTRL+O)" MouseEnter="MenuItem_MouseEnter_1" MouseLeave="MenuItem_MouseLeave_1"/> <!-- opens an "Open File dialog" :: open .shp-->
+                <MenuItem Header="Save" Click="menuClick_Save" InputGestureText="(CTRL+S)" MouseEnter="MenuItem_MouseEnter_2" MouseLeave="MenuItem_MouseLeave_2"/> <!-- opens an "Save File dialog" :: save .shp-->
+                <MenuItem Header="Save As" Click="menuClick_SaveAs" InputGestureText="(CTRL+A)" MouseEnter="MenuItem_MouseEnter_3" MouseLeave="MenuItem_MouseLeave_3"/> <!-- default saves .shp in current directory :: save .shp-->
+                <MenuItem Header="Exit" Click="menuClick_Exit" InputGestureText="(CTRL+X)" MouseEnter="MenuItem_MouseEnter_4" MouseLeave="MenuItem_MouseLeave_4"/> <!-- :: Prompt to save if change(s) occursed since last save. :: Else, prompt for user is sure if they want to exit-->
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo" Click="menuClick_Undo" InputGestureText="(CTRL+Z)" MouseEnter="MenuItem_MouseEnter_5" MouseLeave="MenuItem_MouseLeave_5"/> <!-- :: Undo's last operation :: If nothing to undo, should be unselectable-->
+                <MenuItem Header="Redo" Click="menuClick_Redo" InputGestureText="(CTRL+Y)" MouseEnter="MenuItem_MouseEnter_6" MouseLeave="MenuItem_MouseLeave_6"/> <!-- :: Redo's last undone operation :: If nothing to redo, should be unselectable-->
+            </MenuItem>
+            <MenuItem Header="Parameters">
+                <MenuItem Header="Line" Click="menuClick_Line" InputGestureText="(CTRL+L)" MouseEnter="MenuItem_MouseEnter_7" MouseLeave="MenuItem_MouseLeave_7"/> <!-- opens a dialog for selecting a line type (Solid, DashDot, Dot) *See example*-->
+            </MenuItem>
+            <MenuItem Header="Color">
+                <MenuItem Header="Fill" Click="menuClick_FillColor" InputGestureText="(CTRL+SHIFT+F)" MouseEnter="MenuItem_MouseEnter_8" MouseLeave="MenuItem_MouseLeave_8"/> <!-- opens a color selection dialog box for the fill color-->
+                <MenuItem Header="Line" Click="menuClick_LineColor" InputGestureText="(CTRL+SHIFT+L)" MouseEnter="MenuItem_MouseEnter_9" MouseLeave="MenuItem_MouseLeave_9"/> <!-- opens a color selection dialog box for the shape outline color-->
+                <MenuItem Header="Background" Click="menuClick_BackgroundColor" InputGestureText="(CTRL+SHIFT+B)" MouseEnter="MenuItem_MouseEnter_10" MouseLeave="MenuItem_MouseLeave_10"/> <!-- opens a color selection dialog box for the background color-->
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="menuClick_About" InputGestureText="(CTRL+H)" MouseEnter="MenuItem_MouseEnter_11" MouseLeave="MenuItem_MouseLeave_11"/> <!-- opens a dialog box with a choice picture, name of app, my name, and "CSCI 351, Program 4, Fall 2013"-->
+            </MenuItem>
+            <MenuItem Header="Image">
+                <MenuItem Header="Clear Screen" Click="menuClick_ClearScreen" InputGestureText="(CTRL+SHIFT+C)" MouseEnter="MenuItem_MouseEnter_12" MouseLeave="MenuItem_MouseLeave_12"/> <!-- default save in current directory as jpeg/gid/bitmap-->
+                <MenuItem Header="Open" Click="menuClick_OpenImage" InputGestureText="(CTRL+SHIFT+O)" MouseEnter="MenuItem_MouseEnter_13" MouseLeave="MenuItem_MouseLeave_13"/> <!-- Clears screen of all shapes and resets background -->
+                <MenuItem Header="Save" Click="menuClick_SaveImage" InputGestureText="(CTRL+SHIFT+S)" MouseEnter="MenuItem_MouseEnter_14" MouseLeave="MenuItem_MouseLeave_14"/> <!-- Opens a jpeg/gif/bitmap and sets it as the background-->
+                <MenuItem Header="Save As" Click="menuClick_SaveImageAs" InputGestureText="(CTRL+SHIFT+A)" MouseEnter="MenuItem_MouseEnter_15" MouseLeave="MenuItem_MouseLeave_15"/> <!-- Saves the current drawing/image as a jpeg/gif/bitmap-->
+            </MenuItem>
+        </Menu>
+        <ToolBar Margin="-9,23,-15,-47">
+            <ToolBar.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FFFFFBFF" Offset="0.5"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </ToolBar.Background>
+            <Button ToolTip="Open a .shp file" ToolTipOpening="Button_ToolTipOpening_1" ToolTipClosing="Button_ToolTipClosing_1">
+                <Image Source="AppResources/icons/FOLDER04.ICO" RenderTransformOrigin="-0.158,0.526" MouseLeftButtonDown="stripClick_Open"/>
+            </Button>
+            <Button ToolTip="Save a .shp file" ToolTipOpening="Button_ToolTipOpening_2" ToolTipClosing="Button_ToolTipClosing_2">
+                <Image Source="AppResources/icons/DISK08.ICO" MouseLeftButtonDown="stripClick_Save"/>
+            </Button>
+            <Button x:Name="undoBtn" ToolTip="Undo last operation" ToolTipOpening="undoBtn_ToolTipOpening" ToolTipClosing="undoBtn_ToolTipClosing">
+                <Image Source="AppResources/icons/UNDO.bmp" MouseLeftButtonDown="stripClick_Undo"/>
+            </Button>
+            <Button x:Name="redoBtn" ToolTip="Redo last undone operation" ToolTipOpening="redoBtn_ToolTipOpening" ToolTipClosing="redoBtn_ToolTipClosing">
+                <Image Source="AppResources/icons/REDO.bmp" MouseLeftButtonDown="stripClick_Redo"/>
+            </Button>
+            <Button ToolTip="Select Fill/Draw" ToolTipOpening="Button_ToolTipOpening_3" ToolTipClosing="Button_ToolTipClosing_3">
+                <Image x:Name="lineStyleImg" Source="AppResources/icons/GRAPH03grey.png" MouseLeftButtonDown="stripClick_FillOptions"/>
+            </Button>
+            <Button ToolTip="Select stroke type" ToolTipOpening="Button_ToolTipOpening_4" ToolTipClosing="Button_ToolTipClosing_4">
+                <Image Source="AppResources/icons/line.ico" RenderTransformOrigin="-0.184,0.5" MouseLeftButtonDown="stripClick_LineOptions"/>
+            </Button>
+            <Button ToolTip="Open image and set as background" ToolTipOpening="Button_ToolTipOpening_5" ToolTipClosing="Button_ToolTipClosing_6">
+                <Image Source="AppResources/icons/OPEN.bmp" RenderTransformOrigin="-0.15,0.526" MouseLeftButtonDown="stripClick_OpenImage"/>
+            </Button>
+            <Button ToolTip="Save current canvas as an image" ToolTipOpening="Button_ToolTipOpening_10" ToolTipClosing="Button_ToolTipClosing_7">
+                <Image Source="AppResources/icons/SAVE.bmp" MouseLeftButtonDown="stripClick_SaveImage"/>
+            </Button>
+            <Button ToolTip="Select background color" ToolTipOpening="Button_ToolTipOpening_6" ToolTipClosing="Button_ToolTipClosing_5">
+                <Image Source="AppResources/icons/GRAPH07.ICO" MouseLeftButtonDown="stripClick_BackgroundColorOptions"/>
+            </Button>
+            <Button ToolTip="Select fill color" ToolTipOpening="Button_ToolTipOpening_7" ToolTipClosing="Button_ToolTipClosing_8">
+                <Image Source="AppResources/icons/fill.ico" MouseLeftButtonDown="stripClick_FillColorOptions"/>
+            </Button>
+            <Button ToolTip="Select line color" ToolTipOpening="Button_ToolTipOpening_8" ToolTipClosing="Button_ToolTipClosing_9">
+                <Image Source="AppResources/icons/GRAPH12.ICO" MouseLeftButtonDown="stripClick_LineColorOptions"/>
+            </Button>
+            <Button ToolTip="About this program!" ToolTipOpening="Button_ToolTipOpening_9" ToolTipClosing="Button_ToolTipClosing_10">
+                <Image Source="AppResources/icons/W95MBX04.ICO" MouseLeftButtonDown="stripClick_About"/>
+            </Button>
+            <ComboBox x:Name="shapeComboBox" Margin="0,12" Width="308" Background="#FFFFEC76"></ComboBox>
+        </ToolBar>
+        <StatusBar Margin="593,0,0,-540" HorizontalAlignment="Center" Width="300" VerticalAlignment="Bottom">
+            <StatusBarItem DockPanel.Dock="Right" Width="300" HorizontalAlignment="Right">
+                <TextBox x:Name="coordinatesBox" HorizontalAlignment="Left" Height="23" Margin="215,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" Background="{x:Null}"/>
+            </StatusBarItem>
+        </StatusBar>
+        <StatusBar Margin="0,0,581,-540" HorizontalAlignment="Center" Width="313" VerticalAlignment="Bottom" Height="29">
+            <Label Margin="0,-5,0,0" x:Name="status" Content="Status: --Hover over a control!--"/>
+        </StatusBar>
+        <StatusBar x:Name="fillColorStatusBar" Margin="555,0,95,-540" HorizontalAlignment="Center" Width="244" VerticalAlignment="Bottom" Height="29" Background="White">
+            <Label Margin="0,-5,0,0" Content="Fill Color:"/>
+        </StatusBar>
+        <StatusBar Margin="291,0,329,-540" HorizontalAlignment="Center" Width="274" VerticalAlignment="Bottom" Height="29">
+            <Label x:Name="numShapeLabel" Margin="0,-5,0,0" Content="# of Shapes:"/>
+        </StatusBar>
+    </Grid>
+</Window>
