@@ -1,0 +1,10 @@
+﻿<Window x:Class="ImageEditor_Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ImageEditor="clr-namespace:ImageEditor;assembly=ImageEditor"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <!--Image Editor Control-->
+        <ImageEditor:ImageEditorControl></ImageEditor:ImageEditorControl>
+    </Grid>
+</Window>
