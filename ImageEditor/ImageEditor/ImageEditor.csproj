@@ -53,7 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\ImageEditorControl.xaml">
+    <Page Include="ImageEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -62,7 +62,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Framework\Keyboard\Hotkeys.cs" />
-    <Compile Include="Views\ImageEditorControl.xaml.cs">
+    <Compile Include="ImageEditorControl.xaml.cs">
       <DependentUpon>ImageEditorControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -99,6 +99,7 @@
     <Folder Include="Framework\ImageTools\" />
     <Folder Include="Framework\UndoRedoFunctionality\" />
     <Folder Include="Themes\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
