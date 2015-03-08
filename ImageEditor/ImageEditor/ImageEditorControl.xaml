@@ -23,20 +23,36 @@
         <Menu x:Name="mainMenu" Grid.Row="0" Grid.Column="0">
             <Menu.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF6F6F6" Offset="0.5"/>
+                    <GradientStop Color="#FFF6F6F6" Offset="0.90"/>
                     <GradientStop Color="Black" Offset="1"/>
                 </LinearGradientBrush>
             </Menu.Background>
+            <Menu.Resources>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Width" Value="35"/>
+                </Style>
+            </Menu.Resources>
             
             <!-- @TO-DO: Replace all icons with custom ones. -->
             <MenuItem>
                 <MenuItem.Icon>
-                    <Image Source="Resources/icons/FOLDER04.ICO"/>
+                    <Image Source="Resources/icons/FOLDER04.ICO" Margin="5,0,-5,0"/>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem>
                 <MenuItem.Icon>
-                    <Image Source="Resources/Icons/DISK08.ICO"/>
+                    <Image Source="Resources/Icons/DISK08.ICO" Margin="5,0,-5,0"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="Resources/Icons/UNDO.bmp" Margin="5,0,-5,0"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="Resources/Icons/REDO.bmp" Margin="5,0,-5,0"/>
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
